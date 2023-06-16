@@ -1,0 +1,19 @@
+{
+  "name": "yoimiya",
+  "version": "1.0.0",
+  "description": "Discord bot for a friend's server\r creators: Aki and WIZARD-OF-OZ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.42.0"
+  },
+  "dependencies": {
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.3.0"
+  }
+}
