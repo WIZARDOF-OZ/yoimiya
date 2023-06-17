@@ -9,28 +9,48 @@ const yoimiya = new Client({
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMessages]
 });
+
 yoimiya.commands = new Collection();
 
+//slashcommands folder
 const commandsKaRasta = path.join(__dirname, 'commands');
-const commandKaMaal = fs.readdirSync(commandsKaRasta).filter(file => file.endsWith('.js'));
+const commandKaMaal = fs.readdirSync(commandsKaRasta)
 
-for (const file of commandKaMaal) {
-    const filePath = path.join(commandsKaRasta, file)
-    const command = require(filePath);
+//sub folders of slash commands
+for (const folder of commandKaMaal) {
+    const sumFolders = path.join(commandsKaRasta, folder);
+    const asliMaal = fs.readdirSync(sumFolders).filter(file => file.endsWith('.js'));
+    for (const commands of asliMaal) {
+        const filePath = path.join(sumFolders, commands)
+        const command = require(filePath);
+        //finally setting commands
+        if ('data' in command && 'execute' in command) {
+            yoimiya.commands.set(command.data.name, command);
+        } else {
+            console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+        }
+    }
+}
 
-    // Set a new item in the Collection with the key as the command name and the value as the exported module
-    if ('data' in command && 'execute' in command) {
-        yoimiya.commands.set(command.data.name, command);
+//Event handling
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+    const filePath = path.join(eventsPath, file);
+    const event = require(filePath);
+    if (event.once) {
+        yoimiya.once(event.name, (...args) => event.execute(...args));
     } else {
-        console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+        yoimiya.on(event.name, (...args) => event.execute(...args));
     }
 }
 
 yoimiya.on(Events.ClientReady, () => {
     console.log('bot is alive')
-
+    yoimiya.user.setStatus('idle');
     yoimiya.user.setActivity(`Under Developement`, ActivityType.Watching)
-    const channel = yoimiya.channels.cache.get('1119346920058531931');
+    // const channel = yoimiya.channels.cache.get('1119346920058531931');
     // channel.send('<@952975852801523762> <@583666642010112000> Yoimiya is online');
 })
 yoimiya.login(process.env.token);
