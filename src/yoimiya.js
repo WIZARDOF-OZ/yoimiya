@@ -4,10 +4,12 @@ const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collectio
 const fs = require('fs');
 const path = require('node:path');
 const yoimiya = new Client({
-    intents: [GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMessages]
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMessages
+    ]
 });
 
 yoimiya.commands = new Collection();
@@ -46,6 +48,7 @@ for (const file of eventFiles) {
     }
 }
 
+// Ready Event
 yoimiya.on(Events.ClientReady, () => {
     console.log('bot is alive')
     yoimiya.user.setStatus('idle');
