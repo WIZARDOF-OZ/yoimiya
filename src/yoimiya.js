@@ -3,6 +3,7 @@ require('dotenv').config();
 const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('node:path');
+const messageCreate = require('./events/messageCreate.js')
 const yoimiya = new Client({
     intents: [
         GatewayIntentBits.Guilds,
