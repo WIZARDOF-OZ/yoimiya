@@ -3,7 +3,6 @@ require('dotenv').config();
 const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('node:path');
-const messageCreate = require('./events/messageCreate.js')
 const yoimiya = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -49,5 +48,10 @@ for (const file of eventFiles) {
     }
 }
 
+yoimiya.on("messageCreate", (message) => {
+    if (message.content === 'pingg') {
+        message.reply(`Api Latency ${yoimiya.ws.ping}ms`)
+    }
+})
 
 yoimiya.login(process.env.token);
