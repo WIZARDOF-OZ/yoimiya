@@ -49,7 +49,7 @@ for (const file of eventFiles) {
 }
 
 // Ready Event
-yoimiya.on(Events.ClientReady, () => {
+yoimiya.once(Events.ClientReady, () => {
     console.log('bot is alive')
     yoimiya.user.setStatus('idle');
     yoimiya.user.setActivity(`Under Developement`, ActivityType.Watching)
