@@ -1,5 +1,5 @@
 const { Events, Message } = require('discord.js');
-
+const yoimiya = require('../yoimiya')
 module.exports = {
     name: Events.MessageCreate,
     /**
@@ -15,7 +15,7 @@ module.exports = {
         } else if (message.content === 'hmmm') {
             message.reply('hmmmm')
         } else if (message.content === 'simp') {
-            message.reply('simp yoimiya better')
+            message.channel.send('yes, I know you are my simp <3');
         }
     },
 };

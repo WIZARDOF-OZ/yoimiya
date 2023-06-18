@@ -1,52 +1,35 @@
 const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
-
-
+const yoimiya = require('../../yoimiya');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('kick')
-        .setDescription('try try')
-        .addUserOption((option) => option.setName('user').setDescription("Select a user to kick").setRequired(true))
-        .addStringOption((option) => option.setName('reason').setDescription("Give a reason why to kick the user")
-        ),
+        .setDescription('Select a member to kick.')
+        .addUserOption(option => option.setName('target').setDescription('who is being annoying?').setRequired(true))
+        .addStringOption(option => option.setName('reason').setDescription('and reason').setRequired(false))
+        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+        .setDMPermission(false),
     category: 'mod',
+    async execute(interaction) {
+        const member = interaction.options.getMember('target');
+        const reason = interaction.options.getString('reason') ?? "no reason provided"
+        if (member.id === interaction.user.id) return interaction.reply(';-; you cant do that dude');
+        const success = new EmbedBuilder()
+            .setColor(0x9cff63)
+            .setAuthor()
+            .setTitle('successfully kicked <:tick:846306021663703070>')
+            .addFields(
+                { name: "user", value: `<@${member.id}>`, inline: false },
+                { name: "reason", value: reason, inline: false }
+            )
+            .setTimestamp()
 
-    // actual code goes here
-    async execute(interaction, yoimiya) {
-        const persmission = interaction.member.permissions.has(PermissionFlagsBits.KickMembers)
-        let user = interaction.options.getUser('user');
-        let reason = interaction.options.getString('reason') || `Reason was not provided by ${interaction.user}`;
-
-        if (!persmission) {
-            await interaction.reply({
-                content: "<:crooss:846305904567517184> You dont have the ** required permission** to use this command",
-
-            })
-        } else if (user.id === interaction.user.id) {
-            await interaction.reply({
-                content: "<:crooss:846305904567517184> You cannot **Kick** yourself",
-            })
-        } else if (user.id === yoimiya.user.id) {
-            await interaction.reply({
-                content: "<:crooss:846305904567517184> You can't kick me with my own commands"
-            })
-        } else {
-            let member = interaction.guild.membes.cache.get(user.id)
-            await member.kick(reason)
-                .then(async () => {
-                    const KickEmbed = new EmbedBuilder()
-                        .setColor('Green')
-                        .setDescription(`User Kicked :- ${user} \n Kicked by :- ${interaction.user}\n Reason :- ${reason} `)
-                    await interaction.reply({
-                        embeds: [KickEmbed]
-                    })
-                })
-            // .catch(async (err) => {
-            //     console.log(err)
-            //     await interaction.reply({
-            //         content: "There was an error executing this command",
-            //         ephemeral: false
-            //     })
-            // })
+        try {
+            await interaction.guild.members.kick(member);
+            await interaction.reply({ embeds: [success] });
+            await member.send({ embeds: [success] });
+        } catch (error) {
+            console.log(error)
+            await interaction.reply('sorry, ;( i guess some error appeared')
         }
-    }
+    },
 };

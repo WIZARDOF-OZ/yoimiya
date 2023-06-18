@@ -8,11 +8,12 @@ const yoimiya = new Client({
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessages
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildModeration
     ]
 });
-
 yoimiya.commands = new Collection();
+module.exports = yoimiya;
 
 //slashcommands folder
 const commandsKaRasta = path.join(__dirname, 'commands');
@@ -47,5 +48,6 @@ for (const file of eventFiles) {
         yoimiya.on(event.name, (...args) => event.execute(...args));
     }
 }
+
 // Ready Event
 yoimiya.login(process.env.token);
