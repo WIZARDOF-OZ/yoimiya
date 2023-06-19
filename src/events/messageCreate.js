@@ -8,14 +8,28 @@ module.exports = {
      */
     async execute(message) {
         if (message.author.bot) return;
-        if (message.content === 'ping') {
-            message.reply('pong')
-        } else if (message.content === 'hey') {
-            message.reply(`${message.author} Hey there, My name is Yoimiya and Im a custom bot for this server made by AKi and Wizard`)
-        } else if (message.content === 'hmmm') {
-            message.reply('hmmmm')
-        } else if (message.content === 'simp') {
-            message.channel.send('yes, I know you are my simp <3');
+        const args = message.content.toLocaleLowerCase().trim().split(/ +/);
+        const command = args.shift();
+        switch (command) {
+            case 'rui':
+            case 'akarui':
+            case 'ali': try {
+                message.channel.send('**u hear a sound from no where saying:** \n **even if im not here,  fireworks gonna light ur path**\n ||<@1043111564582060052>||')
+            } catch (err) {
+                console.log(err)
+            }
+                break;
+            case 'hey':
+                message.reply('Heya')
+                break;
+            case 'simp':
+                message.reply('I know you simp for me :3')
+        }
+        if (message.content.startsWith('_yaoi')) {
+            const msg = message.content.slice(5);
+            if (!msg) return;
+            message.delete().catch(err => console.log(err));
+            message.channel.send(msg).catch(err => console.log(err));
         }
     },
 };
