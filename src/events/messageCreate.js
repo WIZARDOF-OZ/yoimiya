@@ -38,6 +38,6 @@ module.exports = {
             }
         }
         else if (message.content.toLocaleLowerCase().startsWith('summon protham'))
-            message.channel.send('KEEP UR EYES PEELED,THE ATMOSPHERE IS GONNA CHANGE,PROTHAM HAS APPEARED\n||<@535077495876091904>||');
+            message.channel.send('Keep YOUR eyes straight, the atmosphere is changing ,it means he entered the domain, welcome - <@535077495876091904>');
     }
 };
