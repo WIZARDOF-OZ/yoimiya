@@ -9,7 +9,9 @@ module.exports = {
     async execute(message) {
         if (message.author.bot) return;
         const args = message.content.toLocaleLowerCase().trim().split(/ +/);
+        //args = ['array, 'of', strings,]
         const command = args.shift();
+        //command= 0th index element, in above case "array";
         switch (command) {
             case 'rui':
             case 'akarui':
