@@ -13,7 +13,8 @@ const yoimiya = new Client({
     ]
 });
 yoimiya.commands = new Collection();
-module.exports = yoimiya;
+
+
 
 //slashcommands folder
 const commandsKaRasta = path.join(__dirname, 'commands');
@@ -51,3 +52,6 @@ for (const file of eventFiles) {
 
 // Ready Event
 yoimiya.login(process.env.token);
+
+module.exports = yoimiya;
+

@@ -1,5 +1,7 @@
 const { Events, Message } = require('discord.js');
-const yoimiya = require('../yoimiya')
+
+// const { yoimiya } = require('../../src/yoimiya')
+
 module.exports = {
     name: Events.MessageCreate,
     /**
@@ -14,7 +16,7 @@ module.exports = {
         //command= 0th index element, in above case "array";
         switch (command) {
             case 'hey':
-                message.reply('Heya');
+                message.reply('Heya!');
                 break;
             case 'simp':
                 message.reply('I know you simp for me :3');

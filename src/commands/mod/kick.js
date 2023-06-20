@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
-const yoimiya = require('../../yoimiya');
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('kick')
@@ -15,7 +15,7 @@ module.exports = {
         if (member.id === interaction.user.id) return interaction.reply(';-; you cant do that dude');
         const success = new EmbedBuilder()
             .setColor(0x9cff63)
-            .setAuthor()
+
             .setTitle('successfully kicked <:tick:846306021663703070>')
             .addFields(
                 { name: "user", value: `<@${member.id}>`, inline: false },
