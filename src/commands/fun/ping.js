@@ -11,7 +11,7 @@ module.exports = {
         const ping = Math.round(interaction.client.ws.ping);
         const pingEmbed = new EmbedBuilder()
             .setTitle('Ping of the bot')
-            .setDescription(`Bot Ping: ${ping}ms`)
+            .setDescription(`🎾Bot Ping: ${ping}ms`)
             .setColor("Green")
             .setTimestamp()
             .setFooter({ text: `Command was used by ${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL()}` });
