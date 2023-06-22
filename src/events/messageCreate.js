@@ -26,7 +26,7 @@ module.exports = {
             //     break
         }
 
-        if (message.content.startsWith('_yaoi')) {
+        if (message.content.startsWith('yuri')) {
             const msg = message.content.slice(5);
             if (!msg) return;
             message.delete().catch(err => console.log(err));
