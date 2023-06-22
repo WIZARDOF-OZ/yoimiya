@@ -32,8 +32,8 @@ for (const folder of commandKaMaal) {
         if ('data' in command && 'execute' in command) {
             yoimiya.commands.set(command.data.name, command);
         } else {
-            // console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-            console.error(chalk.redBright('Fatal Error'), `[Warning] The command at  ${filePath} is missing a required "data" or "execute" property.`)
+            console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+
         }
     }
 }
