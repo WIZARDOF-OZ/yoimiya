@@ -30,7 +30,7 @@ module.exports = {
             await member.send({ embeds: [DMembed] });
         } catch (error) {
             console.log(error)
-            await interaction.reply('sorry, ;( i guess some error appeared')
+            await interaction.reply(`\`\`\`js\n${error}\`\`\``)
         }
     },
 };
