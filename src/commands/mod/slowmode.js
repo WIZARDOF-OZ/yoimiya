@@ -16,7 +16,7 @@ module.exports = {
 
         const slowembed = new EmbedBuilder()
             .setColor(0xfa9e48)
-            .setDescription(`<:tick:846306021663703070> ${channel} now has ${duration} seconds of slowmode`)
+            .setDescription(`<:tick:846306021663703070> | ${channel} now has \`${duration}\` seconds of **slowmode**`)
 
         channel.setRateLimitPerUser(duration).catch(err => {
             return;

@@ -1,7 +1,7 @@
 const { Events, Message } = require('discord.js');
 
 // const { yoimiya } = require('../../src/yoimiya')
-
+const { prefix } = require('../config.js')
 module.exports = {
     name: Events.MessageCreate,
     /**
@@ -27,6 +27,13 @@ module.exports = {
             case 'hmm':
                 message.reply('hmmmmmmm!')
         }
+        if (message.content === `${prefix}ping`) {
+            message.reply('Pong!')
+        } else if (message.content === `${prefix}user-info`) {
+            message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
+        }
+
+
 
         if (message.content.startsWith('yuri')) {
             const msg = message.content.slice(5);
