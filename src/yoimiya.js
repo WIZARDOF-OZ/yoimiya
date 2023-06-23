@@ -69,7 +69,7 @@ for (const folder of commandFolders) {
 }
 
 
-yoimiya.on("messageCreate", (message) => {
+yoimiya.on(Events.MessageCreate, (message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
