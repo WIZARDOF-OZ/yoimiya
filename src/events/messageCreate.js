@@ -24,6 +24,8 @@ module.exports = {
             // case 'summon protham':
             //     message.channel.send('KEEP UR EYES PEELED,THE ATMOSPHERE IS GONNA CHANGE,PROTHAM HAS APPEARED');
             //     break
+            case 'hmm':
+                message.reply('hmmmmmmm!')
         }
 
         if (message.content.startsWith('yuri')) {
@@ -32,7 +34,7 @@ module.exports = {
             message.delete().catch(err => console.log(err));
             message.channel.send(msg).catch(err => console.log(err));
         }
-        else if (message.content.toLocaleLowerCase().includes("rui") || message.content.toLocaleLowerCase().includes("ali") || message.content.toLocaleLowerCase().includes("akarui")) {
+        else if (message.content.toLocaleLowerCase().includes("akarui")) {
             try {
                 message.channel.send('**u hear a sound from no where saying:** \n **even if im not here,  fireworks gonna light ur path**\n ||<@1043111564582060052>||')
             } catch (err) {

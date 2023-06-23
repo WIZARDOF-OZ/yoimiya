@@ -5,12 +5,12 @@ module.exports = {
         .setName('avatar')
         .setDescription('Wanna see your avatar?')
         .addUserOption(op => op.setName('member').setDescription("any specific person's pfp you want to see?"))
-        .addBooleanOption(bo => bo.setName("server_icon").setDescription("Choose true if you want to see your server pfp, otherwise skip this option")),
+        .addBooleanOption(bo => bo.setName("guild_avatar").setDescription("Choose true if you want to see your server pfp, otherwise skip this option")),
     category: 'utility',
     async execute(interaction) {
+        const bool = interaction.options.getBoolean('guild_avatar');
         // code to be written
         const member = interaction.options.getMember('member') ?? interaction;
-        const bool = interaction.options.getBoolean('server_icon');
 
         const av = member.user.displayAvatarURL({ size: 4096, format: 'png', dynamic: true });
 
