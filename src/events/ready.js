@@ -6,6 +6,8 @@ module.exports = {
     execute(yoimiya) {
 
         console.log('bot is alive')
+
+
         yoimiya.user.setStatus('idle');
         yoimiya.user.setActivity(`Under Developement`, ActivityType.Watching)
         // const channel = yoimiya.channels.cache.get('1119346920058531931');

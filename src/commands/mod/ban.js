@@ -21,14 +21,16 @@ module.exports = {
         //     { name: "reason", value: reason, inline: false }
         // )
 
-
+        const DMembed = new EmbedBuilder()
+            .setColor(0xf7aa52)
+            .setDescription(`<:p_dot:837257989563744256> you have been  ban from the ${interaction.guild.name} server\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``)
         try {
             await interaction.guild.members.ban(member);
             await interaction.reply({ embeds: [success] });
-            await member.send({ embeds: [success] });
+            await member.send({ embeds: [DMembed] });
         } catch (error) {
             console.log(error)
-            await interaction.reply('sorry, ;( i guess some error appeared')
+            await interaction.reply(`\`\`\`js\n${error}\`\`\``)
         }
     },
 };
