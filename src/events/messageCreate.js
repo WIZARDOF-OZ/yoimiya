@@ -29,9 +29,6 @@ module.exports = {
                 case 'hmm':
                     message.reply('hmmmmmmm!')
                     break;
-                case 'ping':
-                    message.reply('Pong!');
-                    break;
                 case 'user-info':
                     message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
             }

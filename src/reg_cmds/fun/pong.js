@@ -1,7 +1,7 @@
 module.exports = {
-    name: 'pong',
+    name: 'ping',
     description: 'pong',
     execute: (message, args) => {
-        message.reply(`pong ` + args)
+        message.reply(`pong ` + ' ' + args)
     }
 }

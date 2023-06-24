@@ -24,23 +24,7 @@ for (const folder of commandFolders) {
     }
 };
 
-//regular commands
 
-
-const reg_cmd = path.join(__dirname, 'src/reg_cmds')
-const reg_cmd_folder = fs.readdirSync(reg_cmd);
-
-for (const sub_folder of reg_cmd_folder) {
-
-    const sub_folder_path = path.join(reg_cmd, sub_folder);
-    const main_files = fs.readdirSync(sub_folder_path).filter(fk => fk.endsWith('.js'))
-
-    for (const file_path of main_files) {
-        const file = path.join(sub_folder_path, file_path)
-        const command = require(file);
-        yoimiya.commands.set(command.name, command);
-    }
-}
 
 const rest = new REST().setToken(process.env.token);
 

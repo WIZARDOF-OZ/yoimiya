@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/yoimiya.js",
     "start": "nodemon src/yoimiya.js  ",
-    "cmd": " node dc.js"
+    "cmd": " nodemon dc.js"
   },
   "keywords": [],
   "author": "",
