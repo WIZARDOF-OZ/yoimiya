@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 module.exports = {
-    data: new SlashCommandBuilder().setName('addroles').setDescription('R O L E S')
+    data: new SlashCommandBuilder().setName('roles').setDescription('R O L E S')
         .addSubcommand(sb => sb.setName('all').setDescription("all roles in serer"))
         .addSubcommand(sb => sb.setName('members').setDescription('all members with this given roles')
             .addRoleOption(op => op.setName('role').setDescription('menton a role to get members assigned with it').setRequired(true))

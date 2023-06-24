@@ -10,32 +10,34 @@ module.exports = {
      */
     async execute(message) {
         if (message.author.bot) return;
-        const args = message.content.toLocaleLowerCase().trim().split(/ +/);
-        //args = ['array, 'of', strings,]
-        const command = args.shift();
-        //command= 0th index element, in above case "array";
-        switch (command) {
-            case 'hey':
-                message.reply('Heya!');
-                break;
-            case 'simp':
-                message.reply('I know you simp for me :3');
-                break;
-            // case 'summon protham':
-            //     message.channel.send('KEEP UR EYES PEELED,THE ATMOSPHERE IS GONNA CHANGE,PROTHAM HAS APPEARED');
-            //     break
-            case 'hmm':
-                message.reply('hmmmmmmm!')
+        if (message.content.startsWith(prefix)) {
+
+            const arg = message.content.slice(prefix.length).trim().split(/ +/);//command args args args
+
+            const command = arg.shift().toLowerCase();
+            //command= 0th index element, in above case "array";
+            switch (command) {
+                case 'hey':
+                    message.reply('Heya!');
+                    break;
+                case 'simp':
+                    message.reply('I know you simp for me :3');
+                    break;
+                // case 'summon protham':
+                //     message.channel.send('KEEP UR EYES PEELED,THE ATMOSPHERE IS GONNA CHANGE,PROTHAM HAS APPEARED');
+                //     break
+                case 'hmm':
+                    message.reply('hmmmmmmm!')
+                    break;
+                case 'ping':
+                    message.reply('Pong!');
+                    break;
+                case 'user-info':
+                    message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
+            }
+
         }
-        if (message.content === `${prefix}ping`) {
-            message.reply('Pong!')
-        } else if (message.content === `${prefix}user-info`) {
-            message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
-        }
-
-
-
-        if (message.content.startsWith('yuri')) {
+        else if (message.content.startsWith('yuri')) {
             const msg = message.content.slice(5);
             if (!msg) return;
             message.delete().catch(err => console.log(err));
