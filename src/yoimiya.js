@@ -11,6 +11,7 @@ const yoimiya = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildModeration
     ]
+
 }),
     { token } = require('./config.js'),
     { prefix } = require('./config.js'),
@@ -74,10 +75,10 @@ for (const sub_folder of reg_cmd_folder) {
     for (const file_path of main_files) {
         const file = path.join(sub_folder_path, file_path)
         const command = require(file);
-        yoimiya.commands.set(command.name, command);
+        yoimiya.reg_cmds.set(command.name, command);
     }
 }
-// const pong = require('./reg_cmds/fun/pong.js')
+
 
 
 yoimiya.on(Events.MessageCreate, (message) => {
@@ -88,7 +89,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
     // yoimiya.commands.set(pong.name, pong)
     // if (!yoimiya.commands.has(commandName)) return;
 
-    const command = yoimiya.commands.get(commandName) || yoimiya.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    const command = yoimiya.reg_cmds.get(commandName);
 
 
     if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
