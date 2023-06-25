@@ -26,7 +26,7 @@ const yoimiya = new Client({
     { prefix } = require('./config.js'),
     { emoji } = require("./config.js");
 const config = require('./config.js')
-
+const ms = require('ms')
 yoimiya.commands = new Collection();
 yoimiya.cooldowns = new Collection();
 yoimiya.reg_cmds = new Collection();
