@@ -1,9 +1,7 @@
 
 require('dotenv').config();
-// const chalk = require('chalk');
-const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection, AuditLogEvent } = require('discord.js');
 const fs = require('fs');
-const Discord = require('discord.js')
 const path = require('node:path');
 const yoimiya = new Client({
     intents: [
@@ -16,11 +14,13 @@ const yoimiya = new Client({
 }),
     { token } = require('./config.js'),
     { prefix } = require('./config.js'),
-    { emoji } = require("./config.js")
+    { emoji } = require("./config.js");
+const config = require('./config.js')
+
 yoimiya.commands = new Collection();
 yoimiya.cooldowns = new Collection();
-// yoimiya.commmands = new Discord.Collection()
 yoimiya.reg_cmds = new Collection();
+
 
 //slashcommands folder
 const commandsKaRasta = path.join(__dirname, 'commands');
@@ -57,10 +57,11 @@ for (const file of eventFiles) {
     }
 }
 console.log(`${eventFiles.length} events loaded successfully`)
-// regular command
+
+
+
 
 //regular commands
-
 
 const reg_cmd = path.join(__dirname, './reg_cmds')
 const reg_cmd_folder = fs.readdirSync(reg_cmd);
@@ -110,6 +111,14 @@ yoimiya.on(Events.MessageCreate, (message) => {
     if (command.guildOnly && message.channel.type === 'dm') {
         return message.reply('I can\'t execute that command inside DMs!');
     }
+
+    if (command.permissions) {
+        const authorPerms = message.channel.permissionsFor(message.author);
+        if (!authorPerms || !authorPerms.has(command.permissions)) {
+            return message.reply('You can not do this!');
+        }
+    }
+
     const { cooldowns } = yoimiya;
 
     if (!cooldowns.has(command.name)) {

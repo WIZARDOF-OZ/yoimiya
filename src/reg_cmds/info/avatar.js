@@ -7,6 +7,7 @@ module.exports = {
     description: "Display a user avatar",
     usage: "avatar [@user | user ID]",
     category: "Information",
+    guildOnly: true,
 
     execute: async (message, args) => {
         let user;

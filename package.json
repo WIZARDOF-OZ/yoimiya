@@ -14,7 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.42.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^1.14.9"
   },
   "dependencies": {
     "chalk": "^5.2.0",

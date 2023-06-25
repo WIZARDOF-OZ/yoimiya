@@ -14,7 +14,7 @@ module.exports = {
             const member = interaction.options.getMember('target');
             const reason = interaction.options.getString('reason') ?? "no reason provided"
             if (member.id === interaction.user.id) return interaction.reply(';-; you cant do that dude');
-            if (member.id === owners.user) return interaction.reply(`You can't kick them`)
+            if (member.id !== owners.user) return interaction.reply(`You can't kick them`)
             const success = new EmbedBuilder()
                 .setColor(0xf7aa52)
                 .setDescription(`<:p_dot:837257989563744256> User: <@${member.id}> was kicked from the server successfully\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``)

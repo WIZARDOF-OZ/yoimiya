@@ -3,6 +3,7 @@ module.exports = {
     owners: ['583666642010112000', ' 952975852801523762 '],
     support_server: 'https://discord.gg/fcCDE9RQ3',
     prefix: '-',
+    auditChannel: '<#1119346920058531931>',
     version: '1.0.0',
     color: {
         error: '#E72E2B',
