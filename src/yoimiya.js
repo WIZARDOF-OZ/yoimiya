@@ -98,7 +98,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
     // yoimiya.commands.set(pong.name, pong)
     // if (!yoimiya.commands.has(commandName)) return;
 
-    const command = yoimiya.reg_cmds.get(commandName);
+    const command = yoimiya.reg_cmds.get(commandName) || yoimiya.reg_cmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 
     if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
