@@ -85,6 +85,7 @@ for (const sub_folder of reg_cmd_folder) {
         const file = path.join(sub_folder_path, file_path)
         const command = require(file);
         yoimiya.reg_cmds.set(command.name, command);
+        console.log(`${file.split(reg_cmd)} loded commands`)
     }
 }
 
@@ -100,7 +101,9 @@ yoimiya.on(Events.MessageCreate, (message) => {
 
     const command = yoimiya.reg_cmds.get(commandName) || yoimiya.reg_cmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-    console.log(`${commandName} loaded commands`)
+    // console.log(`${commandName} loaded commands`)
+
+    console.log(`${command} is now loded`)
     if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
     if (command) {
         command.execute(message, args);
