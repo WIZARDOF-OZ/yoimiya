@@ -100,7 +100,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
 
     const command = yoimiya.reg_cmds.get(commandName) || yoimiya.reg_cmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-
+    console.log(`${commandName} loaded commands`)
     if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
     if (command) {
         command.execute(message, args);
@@ -157,6 +157,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
     // } catch (error) {
     //     message.reply('there was an error trying to execute that command!');
     // }
+
 
 })
 
