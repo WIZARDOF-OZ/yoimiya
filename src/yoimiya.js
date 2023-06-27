@@ -169,7 +169,9 @@ yoimiya.on(Events.MessageCreate, (message) => {
 })
 
 
-yoimiya.login(token);
+yoimiya.login(token).catch(err => {
+    console.log(err)
+});
 
 module.exports = yoimiya;
 
