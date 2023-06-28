@@ -1,19 +1,5 @@
-
-
-const express = require('express')
-const app = express();
-const port = 3000;
-
-app.get('/', (req, res) => res.send('Hey there!'))
-
-app.listen(port, () =>
-    console.log(`Your app is listening a http://localhost:${port}`)
-);
-
-
-
 require('dotenv').config();
-const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection, AuditLogEvent } = require('discord.js');
+const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection, PermissionFlagsBits, Partials } = require('discord.js');
 const fs = require('fs');
 const path = require('node:path');
 const yoimiya = new Client({
@@ -23,14 +9,15 @@ const yoimiya = new Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildModeration
-    ]
+    ],
+    partials: [Partials.Channel],
 
 }),
     { token } = require('./config.js'),
     { prefix } = require('./config.js'),
     { emoji } = require("./config.js");
 const config = require('./config.js')
-const ms = require('ms')
+const AntiSpam = require('discord-anti-spam');
 yoimiya.commands = new Collection();
 yoimiya.cooldowns = new Collection();
 yoimiya.reg_cmds = new Collection();
@@ -94,8 +81,28 @@ for (const sub_folder of reg_cmd_folder) {
 }
 
 
+// Antispam system
+const antiSpam = new AntiSpam({
+    warnThreshold: 2, // Amount of messages sent in a row that will cause a warning.
+    muteTreshold: 6, // Amount of messages sent in a row that will cause a mute.
+    kickTreshold: 9, // Amount of messages sent in a row that will cause a kick.
+    banTreshold: 12, // Amount of messages sent in a row that will cause a ban.
+    warnMessage: "Stop spamming!", // Message sent in the channel when a user is warned.
+    muteMessage: "You have been muted for spamming!", // Message sent in the channel when a user is muted.
+    kickMessage: "You have been kicked for spamming!", // Message sent in the channel when a user is kicked.
+    banMessage: "You have been banned for spamming!", // Message sent in the channel when a user is banned.
+    unMuteTime: 60, // Time in minutes before the user will be able to send messages again.
+    verbose: true, // Whether or not to log every action in the console.
+    removeMessages: true, // Whether or not to remove all messages sent by the user.
+    ignoredPermissions: [''], // If the user has the following permissions, ignore him.
+    // For more options, see the documentation:
+});
 
+yoimiya.on(Events.MessageCreate, (message) => antiSpam.message(message))
+
+// messageCreate event for regular commands
 yoimiya.on(Events.MessageCreate, (message) => {
+
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -105,9 +112,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
 
     const command = yoimiya.reg_cmds.get(commandName) || yoimiya.reg_cmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-    // console.log(`${commandName} loaded commands`)
 
-    console.log(`${command} is now loded`)
     if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
     if (command) {
         command.execute(message, args);
