@@ -1,4 +1,17 @@
 
+
+const express = require('express')
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Hey there!'))
+
+app.listen(port, () =>
+    console.log(`Your app is listening a http://localhost:${port}`)
+);
+
+
+
 require('dotenv').config();
 const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection, AuditLogEvent } = require('discord.js');
 const fs = require('fs');
@@ -17,7 +30,7 @@ const yoimiya = new Client({
     { prefix } = require('./config.js'),
     { emoji } = require("./config.js");
 const config = require('./config.js')
-
+const ms = require('ms')
 yoimiya.commands = new Collection();
 yoimiya.cooldowns = new Collection();
 yoimiya.reg_cmds = new Collection();
@@ -76,6 +89,7 @@ for (const sub_folder of reg_cmd_folder) {
         const file = path.join(sub_folder_path, file_path)
         const command = require(file);
         yoimiya.reg_cmds.set(command.name, command);
+        console.log(`${file.split(reg_cmd)} loded commands`)
     }
 }
 
@@ -89,9 +103,11 @@ yoimiya.on(Events.MessageCreate, (message) => {
     // yoimiya.commands.set(pong.name, pong)
     // if (!yoimiya.commands.has(commandName)) return;
 
-    const command = yoimiya.reg_cmds.get(commandName);
+    const command = yoimiya.reg_cmds.get(commandName) || yoimiya.reg_cmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
+    // console.log(`${commandName} loaded commands`)
 
+    console.log(`${command} is now loded`)
     if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
     if (command) {
         command.execute(message, args);
@@ -149,10 +165,13 @@ yoimiya.on(Events.MessageCreate, (message) => {
     //     message.reply('there was an error trying to execute that command!');
     // }
 
+
 })
 
 
-yoimiya.login(token);
+yoimiya.login(token).catch(err => {
+    console.log(err)
+});
 
 module.exports = yoimiya;
 

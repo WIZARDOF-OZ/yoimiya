@@ -29,8 +29,11 @@ module.exports = {
                 case 'hmm':
                     message.reply('hmmmmmmm!')
                     break;
-                case 'user-info':
+                case 'userinfo':
                     message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
+                    break;
+                case 'smash':
+                    message.reply('what u saying????')
             }
 
         }
