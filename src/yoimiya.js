@@ -1,3 +1,14 @@
+const express = require('express')
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Hey there!'))
+
+app.listen(port, () =>
+    console.log(chalk.cyan(`Your app is listening a http://localhost:${port}`))
+);
+
+
 require('dotenv').config();
 const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection, PermissionFlagsBits, Partials } = require('discord.js');
 const fs = require('fs');
@@ -83,23 +94,27 @@ for (const sub_folder of reg_cmd_folder) {
 
 // Antispam system
 const antiSpam = new AntiSpam({
-    warnThreshold: 2, // Amount of messages sent in a row that will cause a warning.
+    warnThreshold: 3, // Amount of messages sent in a row that will cause a warning.
     muteTreshold: 6, // Amount of messages sent in a row that will cause a mute.
     kickTreshold: 9, // Amount of messages sent in a row that will cause a kick.
     banTreshold: 12, // Amount of messages sent in a row that will cause a ban.
-    warnMessage: "Stop spamming!", // Message sent in the channel when a user is warned.
-    muteMessage: "You have been muted for spamming!", // Message sent in the channel when a user is muted.
-    kickMessage: "You have been kicked for spamming!", // Message sent in the channel when a user is kicked.
-    banMessage: "You have been banned for spamming!", // Message sent in the channel when a user is banned.
+    maxInterval: 2000, // Amount of time (in milliseconds) in which messages are considered spam.
+    warnMessage: '{@user}, Please stop spamming.', // Message that will be sent in chat upon warning a user.
+    kickMessage: '**{user_tag}** has been kicked for spamming.', // Message that will be sent in chat upon kicking a user.
+    muteMessage: '**{user_tag}** has been muted for spamming.',// Message that will be sent in chat upon muting a user.
+    banMessage: '**{user_tag}** has been banned for spamming.', // Message that will be sent in chat upon banning a user.
     unMuteTime: 60, // Time in minutes before the user will be able to send messages again.
     verbose: true, // Whether or not to log every action in the console.
     removeMessages: true, // Whether or not to remove all messages sent by the user.
-    ignoredPermissions: [''], // If the user has the following permissions, ignore him.
-    // For more options, see the documentation:
+    maxDuplicatesWarning: 6, // Amount of duplicate messages that trigger a warning.
+    maxDuplicatesKick: 10, // Amount of duplicate messages that trigger a warning.
+    maxDuplicatesBan: 4, // Amount of duplicate messages that trigger a warning.
+    maxDuplicatesMute: 8, // Ammount of duplicate message that trigger a mute.
+    ignoreBots: true, // Ignore bot messages.
 });
 
-yoimiya.on(Events.MessageCreate, (message) => antiSpam.message(message))
-
+yoimiya.on("messageCreate", (message) => antiSpam.message(message))
+// yoimiya.setMaxListeners(50);
 // messageCreate event for regular commands
 yoimiya.on(Events.MessageCreate, (message) => {
 
