@@ -1,15 +1,16 @@
 const { emoji } = require("../../config.js")
+
 module.exports = {
     name: "purge",
     aliases: ['delete', 'clear'],
     cooldown: 2,
     category: "mod",
     description: 'Use to delete messages',
-    permissions: 'MANAGE_MESSAGES',
+    memberPermissions: ['ManageMessages'],
 
     execute: async (message, args) => {
         try {
-            // if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.reply("You Don't Have MANAGE MESSAGES Perms");
+            // if (!message.member.permissions.has('ManageMessages')) return message.reply("You Don't Have MANAGE MESSAGES Perms");
 
             if (!args[0]) return message.reply(`${emoji.error} | Please enter the amount of messages to clear`);
 

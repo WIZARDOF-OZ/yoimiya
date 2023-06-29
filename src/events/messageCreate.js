@@ -35,7 +35,7 @@ module.exports = {
                 case 'smash':
                     message.reply('what u saying????')
                 case 'ok':
-                    message.reply('nope')
+                    message.er
             }
 
         }
