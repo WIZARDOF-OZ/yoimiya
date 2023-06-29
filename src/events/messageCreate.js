@@ -34,6 +34,8 @@ module.exports = {
                     break;
                 case 'smash':
                     message.reply('what u saying????')
+                case 'ok':
+                    message.reply('nope')
             }
 
         }
