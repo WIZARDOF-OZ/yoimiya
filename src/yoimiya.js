@@ -1,5 +1,6 @@
 require('dotenv').config();
-const { Client, GatewayIntentBits, Events, EmbedBuilder, ActivityType, Collection, PermissionFlagsBits, Partials } = require('discord.js');
+// Defining the values
+const { Client, GatewayIntentBits, Events, EmbedBuilder, Collection, Partials } = require('discord.js');
 const fs = require('fs');
 const path = require('node:path');
 const yoimiya = new Client({
@@ -8,16 +9,18 @@ const yoimiya = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildModeration
+        GatewayIntentBits.GuildModeration,
     ],
     partials: [Partials.Channel],
 
-}),
-    { token } = require('./config.js'),
-    { prefix } = require('./config.js'),
-    { emoji } = require("./config.js");
-const config = require('./config.js')
+});
+const { token } = require('./config.js');
+const { prefix } = require('./config.js');
+const { emoji } = require('./config.js');
+const config = require('./config.js');
 const AntiSpam = require('discord-anti-spam');
+
+// Defining global collection
 yoimiya.commands = new Collection();
 yoimiya.cooldowns = new Collection();
 yoimiya.reg_cmds = new Collection();
@@ -25,7 +28,7 @@ yoimiya.reg_cmds = new Collection();
 
 //slashcommands folder
 const commandsKaRasta = path.join(__dirname, 'commands');
-const commandKaMaal = fs.readdirSync(commandsKaRasta)
+const commandKaMaal = fs.readdirSync(commandsKaRasta);
 
 //sub folders of slash commands
 for (const folder of commandKaMaal) {
@@ -53,30 +56,31 @@ for (const file of eventFiles) {
     const event = require(filePath);
     if (event.once) {
         yoimiya.once(event.name, (...args) => event.execute(...args));
-    } else {
+    }
+    else {
         yoimiya.on(event.name, (...args) => event.execute(...args));
     }
 }
-console.log(`${eventFiles.length} events loaded successfully`)
+console.log(`${eventFiles.length} events loaded successfully`);
 
 
 
 
 //regular commands
 
-const reg_cmd = path.join(__dirname, './reg_cmds')
+const reg_cmd = path.join(__dirname, './reg_cmds');
 const reg_cmd_folder = fs.readdirSync(reg_cmd);
 
 for (const sub_folder of reg_cmd_folder) {
 
     const sub_folder_path = path.join(reg_cmd, sub_folder);
-    const main_files = fs.readdirSync(sub_folder_path).filter(fk => fk.endsWith('.js'))
+    const main_files = fs.readdirSync(sub_folder_path).filter(fk => fk.endsWith('.js'));
     // console.log(`\`${main_files} \`commands loaded successfully`)
     for (const file_path of main_files) {
-        const file = path.join(sub_folder_path, file_path)
+        const file = path.join(sub_folder_path, file_path);
         const command = require(file);
         yoimiya.reg_cmds.set(command.name, command);
-        console.log(`${file.split(reg_cmd)} loded commands`)
+        // console.log(`${file.split(reg_cmd)} loded commands`)
     }
 }
 
@@ -105,7 +109,7 @@ const antiSpam = new AntiSpam({
     removeMessages: true,
 });
 // for to trigger antispam
-yoimiya.on("messageCreate", (message) => antiSpam.message(message))
+yoimiya.on('messageCreate', (message) => antiSpam.message(message));
 
 // messageCreate event for regular commands
 yoimiya.on(Events.MessageCreate, (message) => {
@@ -133,7 +137,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
         emoji: config.emoji,
         commands: yoimiya.commands,
         prefix: config.prefix,
-    }
+    };
 
     // options for the command structure
     let options = {
@@ -179,7 +183,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
     let missingPermsMember = [];
     options.memberPermissions.forEach((perm) => {
         if (!member.permissions.has(perm)) {
-            return missingPermsMember.push(perm)
+            return missingPermsMember.push(perm);
         }
     });
     const noReqPermsMember = new EmbedBuilder()
@@ -223,29 +227,29 @@ yoimiya.on(Events.MessageCreate, (message) => {
         .setColor(config.color.error)
         .setAuthor({ name: author.tag, iconURL: author.displayAvatarURL({ dynamic: true }) })
         .setDescription(`${config.emoji.error} The bot is on **dev mode**, All commands are disabled right now.`);
-    if (config.dev.enabled && guild.id !== config.dev.guild) return message.reply({ embeds: [onDevMode] })
+    if (config.dev.enabled && guild.id !== config.dev.guild) return message.reply({ embeds: [onDevMode] });
 
     const disabledCmd = new EmbedBuilder()
         .setColor(config.color.error)
         .setAuthor({ name: author.tag, iconURL: author.displayAvatarURL({ dynamic: true }) })
-        .setDescription(`${config.emoji.error} This command has been disabled by the bot owner.`)
+        .setDescription(`${config.emoji.error} This command has been disabled by the bot owner.`);
     if (!options.enabled) return message.reply({ embeds: [disabledCmd] })
 
     const ownerOnlyCmd = new EmbedBuilder()
         .setColor(config.color.error)
         .setAuthor({ name: author.tag, iconURL: author.displayAvatarURL({ dynamic: true }) })
-        .setDescription(`${config.emoji.error} Only the bot owner can use this command.`)
+        .setDescription(`${config.emoji.error} Only the bot owner can use this command.`);
     if (options.ownerOnly && !config.owners.includes(author.id)) return message.reply({ embeds: [ownerOnlyCmd] });
 
     if (command) {
         command.execute(message, args, args.join(" "), instance);
     }
 
-})
+});
 
 
 yoimiya.login(token).catch(err => {
-    console.log(err)
+    console.log(err);
 });
 
 module.exports = yoimiya;

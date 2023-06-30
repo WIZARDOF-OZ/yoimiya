@@ -17,7 +17,7 @@ module.exports = {
         if (member.id !== owners.users) return interaction.reply(`You cant ban them`)
         const success = new EmbedBuilder()
             .setColor(0xf7aa52)
-            .setDescription(`<:p_dot:837257989563744256> User: <@${member.id}> was ban from the server successfully\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``)
+            .setDescription(`<:p_dot:837257989563744256> User: <@${member.id}> was ban from the server successfully\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``);
         // .addFields(
         //     { name: "user", value: `<@${member.id}>`, inline: false },
         //     { name: "reason", value: reason, inline: false }
@@ -25,13 +25,13 @@ module.exports = {
 
         const DMembed = new EmbedBuilder()
             .setColor(0xf7aa52)
-            .setDescription(`<:p_dot:837257989563744256> you have been  ban from the ${interaction.guild.name} server\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``)
+            .setDescription(`<:p_dot:837257989563744256> you have been  ban from the ${interaction.guild.name} server\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``);
         try {
             await interaction.guild.members.ban(member);
             await interaction.reply({ embeds: [success] });
             await member.send({ embeds: [DMembed] });
         } catch (error) {
-            console.log(error)
+            console.log(error);
             // await interaction.reply(`\`\`\`js\n${error}\`\`\``)
         }
     },
