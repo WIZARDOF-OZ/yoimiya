@@ -17,8 +17,8 @@ module.exports = {
                 { name: 'bla bla', value: 'blah' },
                 { name: 'bla bla', value: 'blah' },
                 { name: 'bla bla', value: 'blah' },
-            ])
+            ]);
 
-        console.log(action, executorId, targetId, channel)
-    }
-}
+        console.log(action, executorId, targetId, channel);
+    },
+};

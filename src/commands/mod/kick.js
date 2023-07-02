@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
-const { owners } = require('../../config.js')
+const { owners } = require('../../config.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('kick')
@@ -17,14 +17,14 @@ module.exports = {
             if (member.id !== owners.user) return interaction.reply(`You can't kick them`)
             const success = new EmbedBuilder()
                 .setColor(0xf7aa52)
-                .setDescription(`<:p_dot:837257989563744256> User: <@${member.id}> was kicked from the server successfully\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``)
+                .setDescription(`<:p_dot:837257989563744256> User: <@${member.id}> was kicked from the server successfully\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``);
             // .addFields(
             //     { name: "user", value: `<@${member.id}>`, inline: false },
             //     { name: "reason", value: reason, inline: false }
             // )
             const DMembed = new EmbedBuilder()
                 .setColor(0xf7aa52)
-                .setDescription(`<:p_dot:837257989563744256> You have been  kick from the ${interaction.guild.name} server\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``)
+                .setDescription(`<:p_dot:837257989563744256> You have been  kick from the ${interaction.guild.name} server\n\n <:p_dot:837257989563744256> Reason: \`\`${reason}\`\``);
 
 
             await interaction.guild.members.kick(member);
@@ -32,8 +32,8 @@ module.exports = {
             await member.send({ embeds: [DMembed] });
         } catch (error) {
 
-            console.log(error)
-            await interaction.reply(`\`\`\`js\n${error}\`\`\``)
+            console.log(error);
+            await interaction.reply(`\`\`\`js\n${error}\`\`\``);
         }
     },
 };
