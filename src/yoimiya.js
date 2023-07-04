@@ -145,6 +145,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
     // yoimiya.commands.set(pong.name, pong)
     // if (!yoimiya.commands.has(commandName)) return;
     const command = yoimiya.reg_cmds.get(commandName) || yoimiya.reg_cmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
     let instance = {
         owners: config.owners,
         color: config.color,
@@ -167,7 +168,6 @@ yoimiya.on(Events.MessageCreate, (message) => {
         execute: command.execute,
 
     }
-    if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
 
     if (command.args && !args.length) {
         return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
