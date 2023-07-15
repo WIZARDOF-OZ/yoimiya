@@ -22,7 +22,7 @@ module.exports = {
             //     .setColor(0xf7aa52)
             //     .setTimestamp()
             // message.channel.send({ embeds: [sayEmbed] })
-            message.replys(args.join(" "))
+            message.reply(args.join(" "))
         } catch (err) {
             message.channel.send(err.stack)
         }

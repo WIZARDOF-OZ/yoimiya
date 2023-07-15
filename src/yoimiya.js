@@ -1,3 +1,13 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Hey there!'));
+
+app.listen(port, () =>
+    console.log(`Your app is listening a http://localhost:${port}`),
+);
+
 require('dotenv').config();
 // Defining the values
 const { Client, GatewayIntentBits, Events, EmbedBuilder, Collection, Partials } = require('discord.js');
@@ -221,7 +231,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
     // } catch (error) {
     //     message.reply('there was an error trying to execute that command!');
     // }
-
+/*
     // Embeds for the options
     const onDevMode = new EmbedBuilder()
         .setColor(config.color.error)
@@ -240,7 +250,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
         .setAuthor({ name: author.tag, iconURL: author.displayAvatarURL({ dynamic: true }) })
         .setDescription(`${config.emoji.error} Only the bot owner can use this command.`);
     if (options.ownerOnly && !config.owners.includes(author.id)) return message.reply({ embeds: [ownerOnlyCmd] });
-
+*/
     if (command) {
         command.execute(message, args, args.join(" "), instance);
     }
