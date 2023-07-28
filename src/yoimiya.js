@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -7,6 +8,10 @@ app.get('/', (req, res) => res.send('Hey there!'));
 app.listen(port, () =>
     console.log(`Your app is listening a http://localhost:${port}`),
 );
+
+
+
+
 
 require('dotenv').config();
 // Defining the values
@@ -141,6 +146,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
     // yoimiya.commands.set(pong.name, pong)
     // if (!yoimiya.commands.has(commandName)) return;
     const command = yoimiya.reg_cmds.get(commandName) || yoimiya.reg_cmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
     let instance = {
         owners: config.owners,
         color: config.color,
@@ -163,7 +169,6 @@ yoimiya.on(Events.MessageCreate, (message) => {
         execute: command.execute,
 
     }
-    if (!command) return message.react('<:YaeMikoWatching:1113478319535554610>');
 
     if (command.args && !args.length) {
         return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
@@ -231,6 +236,7 @@ yoimiya.on(Events.MessageCreate, (message) => {
     // } catch (error) {
     //     message.reply('there was an error trying to execute that command!');
     // }
+
 /*
     // Embeds for the options
     const onDevMode = new EmbedBuilder()
@@ -251,6 +257,28 @@ yoimiya.on(Events.MessageCreate, (message) => {
         .setDescription(`${config.emoji.error} Only the bot owner can use this command.`);
     if (options.ownerOnly && !config.owners.includes(author.id)) return message.reply({ embeds: [ownerOnlyCmd] });
 */
+
+    /*
+        // Embeds for the options
+        const onDevMode = new EmbedBuilder()
+            .setColor(config.color.error)
+            .setAuthor({ name: author.tag, iconURL: author.displayAvatarURL({ dynamic: true }) })
+            .setDescription(`${config.emoji.error} The bot is on **dev mode**, All commands are disabled right now.`);
+        if (config.dev.enabled && guild.id !== config.dev.guild) return message.reply({ embeds: [onDevMode] });
+    
+        const disabledCmd = new EmbedBuilder()
+            .setColor(config.color.error)
+            .setAuthor({ name: author.tag, iconURL: author.displayAvatarURL({ dynamic: true }) })
+            .setDescription(`${config.emoji.error} This command has been disabled by the bot owner.`);
+        if (!options.enabled) return message.reply({ embeds: [disabledCmd] })
+    
+        const ownerOnlyCmd = new EmbedBuilder()
+            .setColor(config.color.error)
+            .setAuthor({ name: author.tag, iconURL: author.displayAvatarURL({ dynamic: true }) })
+            .setDescription(`${config.emoji.error} Only the bot owner can use this command.`);
+        if (options.ownerOnly && !config.owners.includes(author.id)) return message.reply({ embeds: [ownerOnlyCmd] });
+    */
+
     if (command) {
         command.execute(message, args, args.join(" "), instance);
     }

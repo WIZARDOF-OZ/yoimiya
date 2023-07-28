@@ -22,7 +22,11 @@ module.exports = {
             //     .setColor(0xf7aa52)
             //     .setTimestamp()
             // message.channel.send({ embeds: [sayEmbed] })
+
             message.reply(args.join(" "))
+
+            message.channel.send(args.join(" ")).then(() => message.delete())
+
         } catch (err) {
             message.channel.send(err.stack)
         }
